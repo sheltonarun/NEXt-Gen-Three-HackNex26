@@ -3,3 +3,5 @@ numpy
 python-dotenv
 fastapi
 uvicorn
+requests
+streamlit
