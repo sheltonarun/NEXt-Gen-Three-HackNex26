@@ -1,1 +1,158 @@
-{}
+[
+  {
+    "id": "q01",
+    "question": "What is the total revenue from all completed USD sales in the dataset (excluding records with embedded currency symbols in the amount field, and after removing duplicate sale records)?",
+    "answerable": true,
+    "answer": "166748.00",
+    "answer_unit": "USD",
+    "assumptions": [
+      "Only rows where currency column = 'USD' are included",
+      "Rows with embedded currency symbols (€, $) in the amount field are excluded as ambiguous",
+      "Duplicate sale_ids are deduplicated by keeping the first occurrence",
+      "Only sales matched to a 'completed' order in orders.csv are counted",
+      "Amounts with thousands separators (e.g. '1,160.00') are cleaned before summing"
+    ],
+    "notes": "Trap: currency symbol in amount field conflicts with currency column; duplicates; thousands separators"
+  },
+  {
+    "id": "q02",
+    "question": "What is the total revenue from all sales in the South region?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "South region sales include amounts recorded in both USD and EUR. No exchange rate is provided anywhere in the dataset — the vendor memo (vendor_memo.txt) explicitly states that EUR prices are approximate and no fixed rate is given. A single-currency total cannot be computed without an exchange rate.",
+    "notes": "Trap: mixed currency in region, no exchange rate available"
+  },
+  {
+    "id": "q03",
+    "question": "What is the unit price of product P026 (Identity Manager)?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "Product P026 appears twice in products.csv with two different unit prices: $500.00 and $520.00. There is no indication in the data which entry is current or authoritative. The audit notes (audit_notes.txt, Observation 5) also confirm this inconsistency.",
+    "notes": "Trap: duplicate product row with conflicting price"
+  },
+  {
+    "id": "q04",
+    "question": "What is the total payroll cost for all active Sales department employees?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "Employee E052 (Kofi Silva) is listed as active in the Sales department but has no salary_usd recorded. A complete payroll total for all active Sales employees cannot be computed without this value. The audit notes (Observation 7) also flag payroll records as incomplete.",
+    "notes": "Trap: active employee with missing salary — cannot sum without inventing a value"
+  },
+  {
+    "id": "q05",
+    "question": "How many sale records in the dataset are exact duplicates (same sale_id appearing more than once)?",
+    "answerable": true,
+    "answer": "14",
+    "answer_unit": "unique sale_ids duplicated",
+    "assumptions": [
+      "A duplicate is defined as a sale_id that appears more than once in sales.csv",
+      "The answer counts unique sale_ids that are duplicated, not the total number of duplicate rows"
+    ],
+    "notes": "Duplicated sale_ids: S1081, S1090, S1138, S1148, S1162, S1180, S1192, S1201, S1221, S1222, S1227, S1240, S1272, S1295"
+  },
+  {
+    "id": "q06",
+    "question": "What is the updated list price for Analytics Suite Pro (P002) as of February 2024?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "The vendor memo (vendor_memo.txt) states the new price is $1,320.00 from 'the start of February' but does not specify which year. The structured data (products.csv) lists P002 at $1,200.00. The effective date is ambiguous and the memo is not a structured data source — a verified numeric answer cannot be given from code alone.",
+    "notes": "Trap: unstructured doc contradicts CSV, year is missing from memo date, cannot write verifiable code"
+  },
+  {
+    "id": "q07",
+    "question": "What EUR to USD exchange rate should be used to convert EUR sales amounts?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "No exchange rate is defined anywhere in the structured or unstructured data. The vendor memo explicitly states: 'we do NOT provide fixed exchange rates. All EUR prices you see from us are approximate.' Inventing or assuming an exchange rate is not permitted.",
+    "notes": "Trap: classic unanswerable — rate simply does not exist in the data"
+  },
+  {
+    "id": "q08",
+    "question": "How many products appear more than once in products.csv with different prices?",
+    "answerable": true,
+    "answer": "4",
+    "answer_unit": "products",
+    "assumptions": [
+      "A product is counted if it appears more than once with a different unit_price_usd",
+      "Products with identical duplicate rows (same price) are not counted"
+    ],
+    "notes": "Affected products: P004 ($230 vs $220), P017 ($1330 vs $1325), P026 ($500 vs $520), P039 ($420 vs $410)"
+  },
+  {
+    "id": "q09",
+    "question": "What is Priya's 7% commission amount from the Analytics Suite deal mentioned in the meeting notes?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "The meeting notes mention Priya receives 7% commission for Analytics Suite work, but explicitly state 'Nobody confirmed what it gets applied to, whether its the full deal or just the licence part.' The base amount is unresolved and no corresponding sale is identified by ID in the notes. A numeric answer cannot be computed.",
+    "notes": "Trap: commission rate given but base is explicitly unconfirmed in unstructured doc"
+  },
+  {
+    "id": "q10",
+    "question": "How many employees in the dataset have a missing (blank) salary?",
+    "answerable": true,
+    "answer": "9",
+    "answer_unit": "employees",
+    "assumptions": [
+      "Count is across all departments, not just Sales",
+      "Missing means the salary_usd field is blank/NaN",
+      "Duplicate employee rows are counted as-is (not deduplicated)"
+    ],
+    "notes": "employees.csv has 9 rows with blank salary_usd across all departments"
+  },
+  {
+    "id": "q11",
+    "question": "How many sales transactions have a blank or missing amount in sales.csv?",
+    "answerable": true,
+    "answer": "13",
+    "answer_unit": "rows",
+    "assumptions": [
+      "Blank amount means the amount field is empty/NaN",
+      "Duplicate rows are not removed before counting"
+    ],
+    "notes": "Direct count from data"
+  },
+  {
+    "id": "q12",
+    "question": "What is the total USD revenue from all completed orders where the order total is explicitly recorded in orders.csv (no blanks), excluding duplicate order records?",
+    "answerable": true,
+    "answer": "TBD",
+    "answer_unit": "USD",
+    "assumptions": [
+      "Use orders.csv total column directly (not derived from sales.csv)",
+      "Only status = 'completed' rows",
+      "Blank totals excluded",
+      "Duplicate order_ids deduplicated by keeping first occurrence",
+      "Thousands separators cleaned from total column"
+    ],
+    "notes": "Needs script to compute — left as TBD for Person 3 to fill after verifier run"
+  },
+  {
+    "id": "q13",
+    "question": "What is the headcount of active Sales employees based on the employees.csv file?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "The active field is blank for several employee rows, making it impossible to definitively count all active employees. Additionally, there are duplicate employee_id rows in the extract. The audit notes (Observation 7) state the reviewer was not able to confirm headcount from this extract.",
+    "notes": "Trap: missing active flag + duplicates = cannot give a definitive count"
+  },
+  {
+    "id": "q14",
+    "question": "On 01/02/2024, how many sales were recorded?",
+    "answerable": false,
+    "answer": null,
+    "refusal_reason": "The date 01/02/2024 is ambiguous. The dataset uses at least three date formats (YYYY-MM-DD, MM/DD/YYYY, DD/MM/YYYY) inconsistently. 01/02/2024 could mean January 2nd or February 1st depending on the format convention. The audit notes (Observation 4) confirm this ambiguity. A definitive count for that date cannot be given.",
+    "notes": "Trap: classic date format ambiguity question"
+  },
+  {
+    "id": "q15",
+    "question": "What is the total value of all pending orders in orders.csv where the total is recorded?",
+    "answerable": true,
+    "answer": "TBD",
+    "answer_unit": "mixed currency (USD and EUR)",
+    "assumptions": [
+      "Only status = 'pending' rows with non-blank total are included",
+      "Duplicate order_ids deduplicated",
+      "Result is in mixed currency — the answer note should state this"
+    ],
+    "notes": "Answerable in terms of summing numbers, but result is a mix of currencies — agent should flag this in assumptions"
+  }
+]

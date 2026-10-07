@@ -1,0 +1,57 @@
+product_id,name,category,unit_price_usd,launch_date,stock,supplier_id
+P001,Edge Router X200,Hardware,480.00,2019-06-05,90,S04
+P002,Analytics Suite Pro,Software,1200.00,01/2023,999,S02
+P003,Server Rack Unit R5,Hardware,1140.00,06/2021,20,S02
+P004,Endpoint Security License,Software,230.00,2023,999,S03
+P005,Smart Sensor Kit,Hardware,910.00,2019,132,S04
+P006,Inventory Manager,Software,630.00,04/2021,999,S04
+P007,Managed Switch 24P,Hardware,390.00,2021-04-21,77,S03
+P008,CRM Connect,Software,390.00,11/2023,999,S04
+P009,Wireless Access Point AP6,Hardware,300.00,2021,47,S05
+P010,Backup Vault Cloud,Software,1030.00,06/2022,999,S04
+P011,Rack UPS 1500VA,Hardware,730.00,01/2020,134,S02
+P012,Helpdesk Pro,Software,620.00,2019-09-14,999,S05
+P013,Network Firewall FW300,Hardware,580.00,2019-01-15,52,S03
+P014,Workflow Automator,Software,380.00,2023-08-15,999,S03
+P015,Industrial Gateway IG10,Hardware,1060.00,2021,130,S02
+P016,Network Monitor Plus,Software,1240.00,2019,999,S05
+P017,Barcode Scanner BX4,Hardware,1330.00,2021,55,S01
+P018,Billing Engine,Software,560.00,2021-06-05,999,S02
+P019,POS Terminal T8,Hardware,740.00,07/2019,56,S04
+P020,HR Portal Lite,Software,1190.00,2022-05-01,999,S04
+P021,Thermal Label Printer,Hardware,810.00,2020,33,S03
+P022,Reporting Studio,Software,780.00,2019-09-28,999,S02
+P023,Storage Array SA12,Hardware,1270.00,2022-10-22,99,S05
+P024,Data Sync Agent,Software,600.00,2024,999,S03
+P025,Fibre Media Converter,Hardware,310.00,08/2019,27,S04
+P026,Identity Manager,Software,500.00,2020-05-04,999,S01
+P027,Patch Panel 48P,Hardware,1110.00,2020,7,S05
+P028,Contract Tracker,Software,240.00,2023-09-14,999,S01
+P029,Environmental Monitor EM2,Hardware,580.00,2020-04-27,3,S02
+P030,Fleet Tracker,Software,630.00,2019-10-06,999,S05
+P026,Identity Manager,Software,520.00,2020-05-04,999,S01
+P017,Barcode Scanner BX4,Hardware,1325.00,2021,55,S01
+P031,Video Conference Bar VC5,Hardware,1450.00,2020,11,S03
+P032,Compliance Toolkit,Software,790.00,2023-06-05,999,S03
+P033,Docking Station Pro,Hardware,1220.00,2019,51,S02
+P034,Email Gateway Guard,Software,1160.00,2021,999,S04
+P035,Load Balancer LB200,Hardware,1040.00,02/2022,81,S04
+P036,Dashboard Builder,Software,420.00,04/2021,999,S01
+P037,Camera Module CM4,Hardware,1350.00,2021-01-31,114,S05
+P038,Asset Register,Software,870.00,2022-06-22,999,S04
+P039,Badge Reader BR3,Hardware,420.00,2023-03-04,129,S01
+P040,Procurement Hub,Software,1270.00,2020-01-22,999,S05
+P041,Power Distribution Unit PDU8,Hardware,740.00,2019-12-28,48,S03
+P042,Patch Manager,Software,490.00,2020,999,S03
+P043,NAS Appliance N4,Hardware,1450.00,2021-08-06,72,S03
+P044,Log Analyzer,Software,820.00,2024,999,S02
+P045,Wi-Fi Mesh Node WM3,Hardware,820.00,2020,138,S03
+P046,Mobile Sales App,Software,640.00,2019,999,S05
+P039,Badge Reader BR3,Hardware,410.00,2023-03-04,129,S01
+P047,Field Tablet FT10,Hardware,810.00,2019-12-25,95,S03
+P048,Document Vault,Software,510.00,2024,999,S01
+P049,Cable Test Kit CT1,Hardware,720.00,2023-07-05,94,S01
+P004,Endpoint Security License,Software,220.00,2023,999,S03
+P050,Support Plan Add-on,Software,790.00,2021,999,S04
+P051,Rack Rail Kit,Hardware,730.00,2020-07-04,109,S03
+P052,Audit Trail Module,Software,1300.00,2022-11-14,999,S01
