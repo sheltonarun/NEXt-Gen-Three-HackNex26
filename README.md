@@ -165,6 +165,10 @@ The test suite evaluates answer correctness, proof code execution, unit mismatch
     "assumptions": [
       "Package weights contain mixed metric (kg) and imperial (lbs) units."
     ],
+
+  ## Workflow Diagram
+  ![Uploading image.png…]()
+
     "code": "",
     "refusal_reason": "Unit mismatch detected: Dataset contains mixed units (kg vs lbs) without standardized conversion tags.",
     "verified": false
