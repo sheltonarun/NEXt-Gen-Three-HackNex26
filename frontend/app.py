@@ -317,7 +317,7 @@ def fetch_analysis(question: str, use_mock: bool, backend_url: str) -> dict:
             response = requests.post(
                 backend_url,
                 json={"question": question},
-                timeout=30
+                timeout=120  # LLM + code execution can take up to 60s
             )
             response.raise_for_status()
             return response.json()
@@ -379,6 +379,100 @@ def main():
         backend_url = st.text_input("FastAPI Endpoint", value="http://localhost:8000/analyze")
 
         st.markdown("---")
+
+        # =============================================
+        # FILE UPLOADER SECTION
+        # =============================================
+        st.markdown("### 📂 Upload Your Data Files")
+        st.caption("Upload CSV files or text documents. The AI agent will automatically read and profile them.")
+
+        # Resolve the data directory paths relative to this file
+        from pathlib import Path as _Path
+
+        _root = _Path(__file__).resolve().parent.parent
+        _raw_dir = _root / "data" / "raw"
+        _docs_dir = _root / "data" / "docs"
+        _raw_dir.mkdir(parents=True, exist_ok=True)
+        _docs_dir.mkdir(parents=True, exist_ok=True)
+
+        # CSV uploader → goes to data/raw/
+        uploaded_csvs = st.file_uploader(
+            "📊 Upload CSV Dataset(s)",
+            type=["csv"],
+            accept_multiple_files=True,
+            help="Saved to data/raw/ — the agent will include these in its analysis automatically."
+        )
+
+        if uploaded_csvs:
+            for uploaded_file in uploaded_csvs:
+                save_path = _raw_dir / uploaded_file.name
+                save_path.write_bytes(uploaded_file.getbuffer())
+                st.success(f"✅ Saved: `{uploaded_file.name}` → data/raw/")
+
+        # Text/doc uploader → goes to data/docs/
+        uploaded_docs = st.file_uploader(
+            "📄 Upload Document(s)",
+            type=["txt", "md", "docx"],
+            accept_multiple_files=True,
+            help="Saved to data/docs/ — supports .txt, .md, and .docx files. DOCX text is extracted automatically."
+        )
+
+        if uploaded_docs:
+            for uploaded_file in uploaded_docs:
+                file_ext = uploaded_file.name.rsplit(".", 1)[-1].lower()
+
+                if file_ext == "docx":
+                    # Extract text from DOCX and save as .txt so the agent can read it
+                    try:
+                        import io
+                        from docx import Document as _DocxDocument
+                        doc_obj = _DocxDocument(io.BytesIO(uploaded_file.getbuffer()))
+                        extracted_text = "\n".join(
+                            para.text for para in doc_obj.paragraphs if para.text.strip()
+                        )
+                        # Save as .txt (same name, different extension)
+                        txt_name = uploaded_file.name.rsplit(".", 1)[0] + ".txt"
+                        save_path = _docs_dir / txt_name
+                        save_path.write_text(extracted_text, encoding="utf-8")
+                        st.success(f"✅ DOCX extracted: `{uploaded_file.name}` → saved as `{txt_name}` → data/docs/")
+                    except Exception as e:
+                        st.error(f"❌ Failed to read `{uploaded_file.name}`: {e}")
+                else:
+                    # Plain .txt or .md — save as-is
+                    save_path = _docs_dir / uploaded_file.name
+                    save_path.write_bytes(uploaded_file.getbuffer())
+                    st.success(f"✅ Saved: `{uploaded_file.name}` → data/docs/")
+
+        # Show currently loaded files
+        st.markdown("##### 📁 Currently Loaded Files")
+        csv_files = sorted(_raw_dir.glob("*.csv"))
+        doc_files = (
+            sorted(_docs_dir.glob("*.txt")) +
+            sorted(_docs_dir.glob("*.md"))
+        )
+
+        if csv_files:
+            for f in csv_files:
+                size_kb = round(f.stat().st_size / 1024, 1)
+                st.markdown(
+                    f"<div style='background:#0F172A;border:1px solid #1E293B;border-radius:6px;"
+                    f"padding:6px 10px;margin-bottom:4px;font-size:0.8rem;color:#94A3B8;'>"
+                    f"📊 <b style='color:#E2E8F0;'>{f.name}</b> &nbsp;·&nbsp; {size_kb} KB</div>",
+                    unsafe_allow_html=True,
+                )
+        if doc_files:
+            for f in doc_files:
+                size_kb = round(f.stat().st_size / 1024, 1)
+                st.markdown(
+                    f"<div style='background:#0F172A;border:1px solid #1E293B;border-radius:6px;"
+                    f"padding:6px 10px;margin-bottom:4px;font-size:0.8rem;color:#94A3B8;'>"
+                    f"📄 <b style='color:#E2E8F0;'>{f.name}</b> &nbsp;·&nbsp; {size_kb} KB</div>",
+                    unsafe_allow_html=True,
+                )
+        if not csv_files and not doc_files:
+            st.caption("No data files loaded yet.")
+
+        st.markdown("---")
         st.markdown("### 💡 Quick Load Test Questions")
         
         sample_presets = [
@@ -436,7 +530,7 @@ def main():
         if not question_input.strip():
             st.warning("⚠️ Please enter a question before running the analysis.")
         else:
-            with st.spinner("🧠 AI Agent analyzing dataset schema, data quality, and generating proof script..."):
+            with st.spinner("🧠 AI Agent analyzing dataset... This may take 30–60 seconds while the LLM generates and runs the proof script. Please wait..."):
                 res = fetch_analysis(question_input, use_mock, backend_url)
                 st.session_state["result"] = res
 

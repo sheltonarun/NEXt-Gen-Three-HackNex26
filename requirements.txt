@@ -7,3 +7,4 @@ requests
 streamlit
 supabase
 google-genai
+python-docx
