@@ -6,3 +6,4 @@ uvicorn
 requests
 streamlit
 supabase
+google-genai

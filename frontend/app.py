@@ -333,6 +333,19 @@ def fetch_analysis(question: str, use_mock: bool, backend_url: str) -> dict:
             }
 
 
+def fetch_runs_history(backend_url: str) -> list:
+    """Fetch past run history from backend Supabase table GET /runs."""
+    base_url = backend_url.rsplit('/analyze', 1)[0]
+    runs_url = f"{base_url}/runs"
+    try:
+        res = requests.get(runs_url, timeout=10)
+        if res.status_code == 200:
+            return res.json()
+    except Exception:
+        pass
+    return []
+
+
 # ==========================================
 # MAIN APPLICATION INTERFACE
 # ==========================================
@@ -389,7 +402,6 @@ def main():
         )
 
     # --- QUESTION INPUT AREA ---
-    # Store query in session state if preset clicked
     if preset_clicked:
         st.session_state["question_text"] = preset_clicked
 
@@ -546,9 +558,23 @@ def main():
                 "guessing missing unit conversions, or forecasting future data without factual supporting records."
             )
 
-        # Developer JSON Inspector Drawer
-        with st.expander("🔍 Developer Inspector: Raw JSON Contract Response"):
-            st.json(res)
+        # Developer JSON Inspector & Supabase Run History Drawer
+        st.markdown("---")
+        col_exp1, col_exp2 = st.columns(2)
+        with col_exp1:
+            with st.expander("🔍 Developer Inspector: Raw JSON Contract"):
+                st.json(res)
+        
+        with col_exp2:
+            with st.expander("🗄️ Supabase Run History Logs"):
+                if not use_mock:
+                    history = fetch_runs_history(backend_url)
+                    if history:
+                        st.dataframe(history, use_container_width=True)
+                    else:
+                        st.write("No past runs recorded in Supabase yet.")
+                else:
+                    st.write("Supabase DB run history is enabled in Live API Mode.")
 
 
 if __name__ == "__main__":
