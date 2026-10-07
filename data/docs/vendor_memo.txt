@@ -1,0 +1,34 @@
+ INTERNAL MEMO - NovaSoft  Licensing (S02)
+
+To: Accounts  & Sales Ops
+  Cc: Partner Management
+From:  Rakesh Menon, Partner Billing
+Re:  pricing update - Analytics   SUITE  Pro (P002) and a few  other things
+
+
+
+       Hi all,
+
+
+     quick NOTE before i forget. After  the  last pricing review we have revised the   LIST price for Analytics Suite  Pro. The   new price   is $1,320.00 per licence and this replaces whatever you were quoting before. Please update   your  systems accordingly   and let your reps know  so   nobody is quoting the old number to customers.
+This  takes   effect from the start  of February  for all new  invoices. Renewals that were already  quoted should be honoured as is, i think,  but   check with me before you commit to  anything. If a customer pushes back please  send them  to  me directly   rather  than offering a discount  on your own.
+
+Volume  licences  (10+ seats)   are handled   separately and we will send  those out later.  Same for the multi  year  option, still  being   worked out internally and I dont have a   final structure yet.
+ Regarding   EUR  customers - we  do NOT provide  fixed exchange  rates. All EUR prices you see from  us   are approximate and  may change without notice. Dont quote EUR figures to clients as final. If  a   client   needs a firm   number in  euros they have to confirm it with  us  at the time  of invoicing.
+
+Endpoint Security License (P004) pricing stays the same for now, no change there.  Support contract terms are unchanged also. The Audit Trail  Module add-on will be available to   resellers in   a few   weeks,  more details to follow.
+    On the   admin side:
+- invoices  go out  monthly as  usual, net 30
+- purchase orders should reference the  licence  key not the product name
+- late payments after 45 days may lead  to  suspension of the   licence portal
+-  please use the  new  partner portal login, old one is being retired
+      A couple  of you asked about  the  maintenance renewals, those will be sent in a  separate  email by the account team. I  havent seen the final list yet.
+        If  anything  is   unclear just email  me  or call the billing  desk,   Im usually in after 10. Dont   reply all on this one  please.
+
+THANKS
+Rakesh
+
+
+sent  from   my phone   so excuse  typos
+
+

@@ -3,3 +3,6 @@ numpy
 python-dotenv
 fastapi
 uvicorn
+google-genai
+streamlit
+requests

@@ -1,0 +1,49 @@
+INTERNAL  AUDIT  - OBSERVATIONS LOG
+Sales Data  Review, H1 2024
+    Prepared by:  Finance & Compliance  Review Team
+        Distribution: Head of Sales, Finance Controller,  IT Data Owner
+
+
+
+   Scope: sales, orders, products and  employee extracts as   received from  the shared  drive.   The review covered records dated between   January and  June 2024. Extracts  were taken   as provided and no records were altered during review.
+
+
+    Background
+
+The review was   requested   following concerns raised by  the finance team  regarding reconciliation differences between reported sales and order records. The reviewers were provided with four extracts   and a small number of supporting  documents.  No access   was  given  to the source systems.
+  Observation  1  -  Duplicate Records
+
+
+Several   sale  records appear more than once in the  sales extract  with identical field values across every column.   The same pattern  was noted  in the  orders extract,  where the matching  order records are  also  repeated. The repeated records are  not located   next  to each other,  which suggests they were not entered  twice  in a single  sitting. It is unclear   whether these reflect  re-entry by different staff  or an  export  issue. The number of affected records  is not trivial relative to  the  size  of  the extract.
+
+Observation 2 - Currency Inconsistencies
+
+
+A number of amount fields contain a CURRENCY symbol that does not agree with the  value  in the currency column. Some amounts carry a euro symbol  while  the currency is  recorded  as USD, and  the reverse also occurs.  The reviewer  was unable  to determine which of   the two  fields is   authoritative. Amounts  recorded in  EUR cannot  be  reliably  compared with USD  amounts as  no  rate information  was  supplied with the  extracts. A  small  number of amounts also contain thousands  separators  while the majority do  not.
+
+   Observation 3 - Missing Amounts
+   Some sales rows have no  amount recorded at all.   Several orders in  PENDING status also have no total. The   reviewer noted that  pending   orders without a total may be expected, but could   not  confirm this from the  documentation supplied.  For  sales  with a blank amount  the matching order  record, where one exists, was not consulted  as part  of this  log.
+
+
+Observation 4 - Date Format Confusion
+        Dates are  recorded in  at least three different layouts across the sales and orders files. Where the   day is  12 or  below, the   reviewer could   not tell whether  the day or the   month comes first. Order   dates and sale dates for the same  transaction  are not always written in  the same layout. It is not known whether staff in different regions follow different conventions.
+
+
+
+Observation 5   -  Product  Pricing Differences
+
+
+
+Unit prices in the orders extract do not always agree  with   the PRODUCT master. The differences are small for some products and larger for others. More than one product appears affected.  Several products also appear  twice  in the product master with  two different prices, with no   indication  which  entry is current. Launch dates in the product master are recorded  in different forms, some with a   full date,  some   with month and year,  and some with  year only.
+Observation 6 - Orphan  and  Unmatched Records
+
+      Not every sale has a  corresponding order  record.  The reviewer could not establish whether these  sales were   never fulfilled, were   cancelled,   or were simply not entered into the  order system. No supporting documentation was supplied.
+
+      Observation 7  - Payroll Record Incomplete
+
+The  payroll information for  a number of employees is incomplete.   Salary values   are absent for certain  individuals, and  several records have no hire date.   An active status is  also missing  for some employees. At least one employee record appears twice in  the employee extract. The   reviewer was not able to  confirm headcount from this  extract.
+
+General comment
+
+      The exact  causes  of the issues  above were not  investigated.  Further follow-up with   the data  owners is expected. No  corrective   action has been taken as   part of   this log. This  document is intended for   internal use  only and should not be shared   outside Finance,  Sales  leadership and IT.
+
