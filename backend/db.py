@@ -23,22 +23,23 @@ def get_client() -> Client:
 
 def ensure_table() -> None:
     """
-    Create the run_history table in Supabase if it does not already exist.
-    Called once at server startup from main.py.
-    Uses the Supabase REST API via rpc (raw SQL).
+    Verify the run_history table exists by doing a lightweight SELECT.
+    The table must be created once manually in Supabase SQL editor.
+
+    SQL to run in Supabase → SQL Editor:
+        CREATE TABLE IF NOT EXISTS run_history (
+            id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+            question        TEXT NOT NULL,
+            status          TEXT NOT NULL,
+            answer          TEXT,
+            assumptions     JSONB,
+            code            TEXT,
+            refusal_reason  TEXT,
+            verified        BOOLEAN NOT NULL DEFAULT FALSE
+        );
+        ALTER TABLE run_history DISABLE ROW LEVEL SECURITY;
     """
     client = get_client()
-    sql = """
-    CREATE TABLE IF NOT EXISTS run_history (
-        id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        question    TEXT NOT NULL,
-        status      TEXT NOT NULL,
-        answer      TEXT,
-        assumptions JSONB,
-        code        TEXT,
-        refusal_reason TEXT,
-        verified    BOOLEAN NOT NULL DEFAULT FALSE
-    );
-    """
-    client.rpc("exec_sql", {"query": sql}).execute()
+    # Simple ping — raises if table doesn't exist
+    client.table("run_history").select("id").limit(1).execute()
