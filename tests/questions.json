@@ -1,128 +1,77 @@
 [
   {
-    "id": "Q01",
-    "category": "simple_answerable",
-    "question": "What is the total revenue from all completed orders?",
-    "expected_status": "ok",
-    "description": "Calculates total amount by filtering for completed order status."
+    "id": "q01",
+    "question": "What is the total revenue from all completed USD sales in the dataset (excluding records with embedded currency symbols in the amount field, and after removing duplicate sale records)?",
+    "expected_status": "ok"
   },
   {
-    "id": "Q02",
-    "category": "simple_answerable",
-    "question": "How many unique customers made a purchase in 2023?",
-    "expected_status": "ok",
-    "description": "Counts distinct customer IDs within the 2023 date range."
+    "id": "q02",
+    "question": "What is the total revenue from all sales in the South region?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q03",
-    "category": "simple_answerable",
-    "question": "What is the average transaction value across all non-refunded purchases?",
-    "expected_status": "ok",
-    "description": "Computes mean of transaction amounts excluding refunded orders."
+    "id": "q03",
+    "question": "What is the unit price of product P026 (Identity Manager)?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q04",
-    "category": "simple_answerable",
-    "question": "What is the total quantity of items sold in the Electronics category?",
-    "expected_status": "ok",
-    "description": "Sums item quantities filtered by category."
+    "id": "q04",
+    "question": "What is the total payroll cost for all active Sales department employees?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q05",
-    "category": "simple_answerable",
-    "question": "What is the maximum single order value in the dataset?",
-    "expected_status": "ok",
-    "description": "Finds the max value in the order amount column."
+    "id": "q05",
+    "question": "How many sale records in the dataset are exact duplicates (same sale_id appearing more than once)?",
+    "expected_status": "ok"
   },
   {
-    "id": "Q06",
-    "category": "unit_mismatch",
-    "question": "What is the total weight of all shipped packages combined?",
-    "expected_status": "cannot_determine",
-    "description": "Refuses because weight values mix kg and lbs without standardized units."
+    "id": "q06",
+    "question": "What is the updated list price for Analytics Suite Pro (P002) as of February 2024?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q07",
-    "category": "unit_mismatch",
-    "question": "What is the sum of product lengths in meters?",
-    "expected_status": "cannot_determine",
-    "description": "Refuses because dimension columns contain mixed units (inches and cm)."
+    "id": "q07",
+    "question": "What EUR to USD exchange rate should be used to convert EUR sales amounts?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q08",
-    "category": "unit_mismatch",
-    "question": "What is the total revenue combining transaction amounts in USD, EUR, and JPY without conversion rates?",
-    "expected_status": "cannot_determine",
-    "description": "Refuses because multiple currencies cannot be summed without explicit exchange rates."
+    "id": "q08",
+    "question": "How many products appear more than once in products.csv with different prices?",
+    "expected_status": "ok"
   },
   {
-    "id": "Q09",
-    "category": "duplicate_missing_data",
-    "question": "What is the total revenue after deduplicating transaction IDs and dropping rows with null amounts?",
-    "expected_status": "ok",
-    "description": "Handles missing values and duplicates explicitly according to standard rules."
+    "id": "q09",
+    "question": "What is Priya's 7% commission amount from the Analytics Suite deal mentioned in the meeting notes?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q10",
-    "category": "duplicate_missing_data",
-    "question": "What is the net profit when 30% of cost values are missing in the dataset?",
-    "expected_status": "cannot_determine",
-    "description": "Refuses because missing cost data is too extensive to invent missing values."
+    "id": "q10",
+    "question": "How many employees in the dataset have a missing (blank) salary?",
+    "expected_status": "ok"
   },
   {
-    "id": "Q11",
-    "category": "duplicate_missing_data",
-    "question": "What is the average customer age after filtering out null/missing age values?",
-    "expected_status": "ok",
-    "description": "Ignores missing age fields and computes mean of available ages."
+    "id": "q11",
+    "question": "How many sales transactions have a blank or missing amount in sales.csv?",
+    "expected_status": "ok"
   },
   {
-    "id": "Q12",
-    "category": "duplicate_missing_data",
-    "question": "How many duplicate order rows exist in the raw transaction log?",
-    "expected_status": "ok",
-    "description": "Counts identical duplicate records in raw data."
+    "id": "q12",
+    "question": "What is the total USD revenue from all completed orders where the order total is explicitly recorded in orders.csv (no blanks), excluding duplicate order records?",
+    "expected_status": "ok"
   },
   {
-    "id": "Q13",
-    "category": "trap_question",
-    "question": "Convert total sales from USD to EUR when exchange rate is not provided in dataset.",
-    "expected_status": "cannot_determine",
-    "description": "Trap: Agent must not invent currency exchange rates."
+    "id": "q13",
+    "question": "What is the headcount of active Sales employees based on the employees.csv file?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q14",
-    "category": "trap_question",
-    "question": "Predict the exact sales revenue for Q4 2026 based on historical trend.",
-    "expected_status": "cannot_determine",
-    "description": "Trap: Future predictive questions cannot be answered as factual data analysis."
+    "id": "q14",
+    "question": "On 01/02/2024, how many sales were recorded?",
+    "expected_status": "cannot_determine"
   },
   {
-    "id": "Q15",
-    "category": "trap_question",
-    "question": "What is the sales tax owed for orders shipped to unknown/blank locations?",
-    "expected_status": "cannot_determine",
-    "description": "Trap: Cannot calculate tax rate without region information."
-  },
-  {
-    "id": "Q16",
-    "category": "trap_question",
-    "question": "Who is the top buyer in Germany when region column only contains US state codes?",
-    "expected_status": "cannot_determine",
-    "description": "Trap: Requested slice does not exist in dataset."
-  },
-  {
-    "id": "Q17",
-    "category": "trap_question",
-    "question": "What was the total profit for product IDs that do not exist in the inventory catalog?",
-    "expected_status": "cannot_determine",
-    "description": "Trap: Cannot analyze unlinked or nonexistent items."
-  },
-  {
-    "id": "Q18",
-    "category": "trap_question",
-    "question": "What is the stock market closing price for company suppliers in 2022?",
-    "expected_status": "cannot_determine",
-    "description": "Trap: Question asks for external data not present in the CSV files."
+    "id": "q15",
+    "question": "What is the total value of all pending orders in orders.csv where the total is recorded?",
+    "expected_status": "ok"
   }
 ]
