@@ -1,1 +1,128 @@
-[]
+[
+  {
+    "id": "Q01",
+    "category": "simple_answerable",
+    "question": "What is the total revenue from all completed orders?",
+    "expected_status": "ok",
+    "description": "Calculates total amount by filtering for completed order status."
+  },
+  {
+    "id": "Q02",
+    "category": "simple_answerable",
+    "question": "How many unique customers made a purchase in 2023?",
+    "expected_status": "ok",
+    "description": "Counts distinct customer IDs within the 2023 date range."
+  },
+  {
+    "id": "Q03",
+    "category": "simple_answerable",
+    "question": "What is the average transaction value across all non-refunded purchases?",
+    "expected_status": "ok",
+    "description": "Computes mean of transaction amounts excluding refunded orders."
+  },
+  {
+    "id": "Q04",
+    "category": "simple_answerable",
+    "question": "What is the total quantity of items sold in the Electronics category?",
+    "expected_status": "ok",
+    "description": "Sums item quantities filtered by category."
+  },
+  {
+    "id": "Q05",
+    "category": "simple_answerable",
+    "question": "What is the maximum single order value in the dataset?",
+    "expected_status": "ok",
+    "description": "Finds the max value in the order amount column."
+  },
+  {
+    "id": "Q06",
+    "category": "unit_mismatch",
+    "question": "What is the total weight of all shipped packages combined?",
+    "expected_status": "cannot_determine",
+    "description": "Refuses because weight values mix kg and lbs without standardized units."
+  },
+  {
+    "id": "Q07",
+    "category": "unit_mismatch",
+    "question": "What is the sum of product lengths in meters?",
+    "expected_status": "cannot_determine",
+    "description": "Refuses because dimension columns contain mixed units (inches and cm)."
+  },
+  {
+    "id": "Q08",
+    "category": "unit_mismatch",
+    "question": "What is the total revenue combining transaction amounts in USD, EUR, and JPY without conversion rates?",
+    "expected_status": "cannot_determine",
+    "description": "Refuses because multiple currencies cannot be summed without explicit exchange rates."
+  },
+  {
+    "id": "Q09",
+    "category": "duplicate_missing_data",
+    "question": "What is the total revenue after deduplicating transaction IDs and dropping rows with null amounts?",
+    "expected_status": "ok",
+    "description": "Handles missing values and duplicates explicitly according to standard rules."
+  },
+  {
+    "id": "Q10",
+    "category": "duplicate_missing_data",
+    "question": "What is the net profit when 30% of cost values are missing in the dataset?",
+    "expected_status": "cannot_determine",
+    "description": "Refuses because missing cost data is too extensive to invent missing values."
+  },
+  {
+    "id": "Q11",
+    "category": "duplicate_missing_data",
+    "question": "What is the average customer age after filtering out null/missing age values?",
+    "expected_status": "ok",
+    "description": "Ignores missing age fields and computes mean of available ages."
+  },
+  {
+    "id": "Q12",
+    "category": "duplicate_missing_data",
+    "question": "How many duplicate order rows exist in the raw transaction log?",
+    "expected_status": "ok",
+    "description": "Counts identical duplicate records in raw data."
+  },
+  {
+    "id": "Q13",
+    "category": "trap_question",
+    "question": "Convert total sales from USD to EUR when exchange rate is not provided in dataset.",
+    "expected_status": "cannot_determine",
+    "description": "Trap: Agent must not invent currency exchange rates."
+  },
+  {
+    "id": "Q14",
+    "category": "trap_question",
+    "question": "Predict the exact sales revenue for Q4 2026 based on historical trend.",
+    "expected_status": "cannot_determine",
+    "description": "Trap: Future predictive questions cannot be answered as factual data analysis."
+  },
+  {
+    "id": "Q15",
+    "category": "trap_question",
+    "question": "What is the sales tax owed for orders shipped to unknown/blank locations?",
+    "expected_status": "cannot_determine",
+    "description": "Trap: Cannot calculate tax rate without region information."
+  },
+  {
+    "id": "Q16",
+    "category": "trap_question",
+    "question": "Who is the top buyer in Germany when region column only contains US state codes?",
+    "expected_status": "cannot_determine",
+    "description": "Trap: Requested slice does not exist in dataset."
+  },
+  {
+    "id": "Q17",
+    "category": "trap_question",
+    "question": "What was the total profit for product IDs that do not exist in the inventory catalog?",
+    "expected_status": "cannot_determine",
+    "description": "Trap: Cannot analyze unlinked or nonexistent items."
+  },
+  {
+    "id": "Q18",
+    "category": "trap_question",
+    "question": "What is the stock market closing price for company suppliers in 2022?",
+    "expected_status": "cannot_determine",
+    "description": "Trap: Question asks for external data not present in the CSV files."
+  }
+]
