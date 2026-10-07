@@ -10,6 +10,16 @@ def profile_file(path: Path) -> str:
     lines = [f"FILE: data/raw/{path.name} ({len(df)} rows)"]
     lines.append(f"columns: {list(df.columns)}")
     lines.append(f"exact duplicate rows: {int(df.duplicated().sum())}")
+    key_col = df.columns[0]
+    if "id" in key_col.lower():
+        dupes = df[df.duplicated(subset=[key_col], keep=False)]
+        if not dupes.empty:
+            conflicts = []
+            for name, group in dupes.groupby(key_col):
+                if len(group.drop_duplicates()) > 1:
+                    conflicts.append(str(name))
+            if conflicts:
+                lines.append(f"WARNING: {key_col} has duplicate rows with CONFLICTING data for: {', '.join(conflicts[:10])}")
     nulls = df.isna().sum()
     nulls = nulls[nulls > 0]
     lines.append(f"missing values: {nulls.to_dict() or 'none'}")
